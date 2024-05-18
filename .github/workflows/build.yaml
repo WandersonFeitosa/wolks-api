@@ -33,3 +33,14 @@ jobs:
           gcloud auth configure-docker us-central1-docker.pkg.dev
           docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/wolks-api/nest .
           docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/wolks-api/nest
+
+      - name: deploy the docker image to cloud run
+        run: |
+          gcloud run deploy wolks-api-nest \
+            --image=us-central1-docker.pkg.dev/$GOOGLE_PROJECT/wolks-api/nest \
+            --platform=managed \
+            --region=us-central1 \
+            --allow-unauthenticated
+        env:
+          DATABASE_URL: ${{ env.DATABASE_URL }}
+            
