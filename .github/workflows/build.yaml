@@ -1,0 +1,35 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ vars.GOOGLE_APPLICATION_CREDENTIALS }}
+      GOOGLE_PROJECT: ${{ vars.GOOGLE_PROJECT }}
+      DATABASE_URL: ${{ vars.DATABASE_URL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: ${{ vars.GOOGLE_APPLICATION_CREDENTIALS }}
+
+      - name: install the gcloud cli
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ vars.GOOGLE_PROJECT }}
+          install_components: 'gke-gcloud-auth-plugin'
+
+      - name: build and push the docker image
+        run: |
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+          docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/wolks-api/nest .
+          docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/wolks-api/nest
