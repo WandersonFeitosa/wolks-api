@@ -11,9 +11,13 @@ jobs:
     env:
       GOOGLE_APPLICATION_CREDENTIALS: ${{ vars.GOOGLE_APPLICATION_CREDENTIALS }}
       GOOGLE_PROJECT: ${{ vars.GOOGLE_PROJECT }}
-      DATABASE_URL: ${{ vars.DATABASE_URL }}
+      CREDENTIALS_FILE_NAME: ${{ secrets.CREDENTIALS_FILE_NAME }}
 
     steps:
+      - name: Generate credentials file
+        run: |
+          echo $GOOGLE_APPLICATION_CREDENTIALS > /src/infrastructure/credentials/$CREDENTIALS_FILE_NAME
+      
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -33,14 +37,4 @@ jobs:
           gcloud auth configure-docker us-central1-docker.pkg.dev
           docker build -t us-central1-docker.pkg.dev/$GOOGLE_PROJECT/wolks-api/nest .
           docker push us-central1-docker.pkg.dev/$GOOGLE_PROJECT/wolks-api/nest
-
-      - name: deploy the docker image to cloud run
-        run: |
-          gcloud run deploy wolks-api-nest \
-            --image=us-central1-docker.pkg.dev/$GOOGLE_PROJECT/wolks-api/nest \
-            --platform=managed \
-            --region=us-central1 \
-            --allow-unauthenticated
-        env:
-          DATABASE_URL: ${{ env.DATABASE_URL }}
             

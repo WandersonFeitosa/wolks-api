@@ -14,6 +14,7 @@ model Car {
   year  String
   price Float
   info  String
+  image_url String?
 
   @@map("tb_car")
 }

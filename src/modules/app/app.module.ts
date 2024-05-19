@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { WolksModule } from '../wolks/wolks.module';
+import { FileModule } from '../file/file.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { WolksModule } from '../wolks/wolks.module';
     ScheduleModule.forRoot(),
     PrismaModule,  
     WolksModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
