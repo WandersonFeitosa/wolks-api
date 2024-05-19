@@ -13,11 +13,7 @@ jobs:
       GOOGLE_PROJECT: ${{ vars.GOOGLE_PROJECT }}
       CREDENTIALS_FILE_NAME: ${{ secrets.CREDENTIALS_FILE_NAME }}
 
-    steps:
-      - name: Generate credentials file
-        run: |
-          echo $GOOGLE_APPLICATION_CREDENTIALS > ./src/infrastructure/credentials/$CREDENTIALS_FILE_NAME
-      
+    steps:      
       - name: Checkout code
         uses: actions/checkout@v2
 
