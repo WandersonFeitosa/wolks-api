@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Generate credentials file
         run: |
-          echo $GOOGLE_APPLICATION_CREDENTIALS > /src/infrastructure/credentials/$CREDENTIALS_FILE_NAME
+          echo $GOOGLE_APPLICATION_CREDENTIALS > ./src/infrastructure/credentials/$CREDENTIALS_FILE_NAME
       
       - name: Checkout code
         uses: actions/checkout@v2
