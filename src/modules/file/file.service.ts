@@ -8,7 +8,6 @@ export class FileService {
   constructor() {
     this.storage = new Storage({
       projectId: process.env.PROJECT_ID,
-      keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS_PATH,
     });
     this.bucketName = process.env.BUCKET_NAME;
   }
