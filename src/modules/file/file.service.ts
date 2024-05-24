@@ -1,6 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { File, Storage } from '@google-cloud/storage';
-
 @Injectable()
 export class FileService {
   private readonly storage: Storage;
@@ -8,6 +7,7 @@ export class FileService {
   constructor() {
     this.storage = new Storage({
       projectId: process.env.PROJECT_ID,
+      keyFilename: process.env.KEY_FILE,
     });
     this.bucketName = process.env.BUCKET_NAME;
   }
