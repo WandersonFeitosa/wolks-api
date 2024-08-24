@@ -11,9 +11,9 @@ import { FileModule } from '../file/file.module';
   imports: [
     ConfigModule.forRoot(),
     ScheduleModule.forRoot(),
-    PrismaModule,  
-    WolksModule,
-    FileModule,
+    // PrismaModule,  
+    // WolksModule,
+    // FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
