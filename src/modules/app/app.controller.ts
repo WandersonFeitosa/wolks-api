@@ -11,7 +11,7 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_5_MINUTES)
   healthBob() {
     return this.appService.healthBob();
   }

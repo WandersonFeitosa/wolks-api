@@ -4,7 +4,8 @@ import axios from 'axios';
 @Injectable()
 export class AppService {
   getHello(): string {
-    return 'Hello World!';
+    console.log('UP!');
+    return 'UP!';
   }
 
   async healthBob() {
